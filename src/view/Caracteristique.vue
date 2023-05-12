@@ -1,4 +1,5 @@
 <template>
+  <h3>Caratceristique</h3>
   <div>
     <p>charisme: {{caracteristique.charisme}}</p>
     <p>courage: {{caracteristique.courage}}</p>
@@ -15,6 +16,7 @@
 <script>
 export default {
   name: "Caracteristique",
+  props: ['idPerso'],
   data() {
     return {
       caracteristique: {},
@@ -22,10 +24,11 @@ export default {
   },
   methods: {
     getCaracteristique() {
-      fetch ("http://localhost:8080/persos/" + this.$route.params.id+"/caracteristique")
+      console.log("http://localhost:8080/persos/" + this.idPerso + "/caracteristique")
+      fetch ("http://localhost:8080/persos/" + this.idPerso + "/caracteristique")
           .then((response) => response.json())
           .then((carac) => this.caracteristique = carac)
-          .then(() => console.log("perso = " + this.caracteristique))
+          .then(() => console.log("perso = " + JSON.stringify(this.caracteristique)))
     }
   },
   created() {
