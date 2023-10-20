@@ -1,14 +1,14 @@
 <template>
-  <ul>
-    <router-link :to="'/perso/home/'+idPerso">home</router-link>
-    <router-link :to="'/perso/caracteristique/'+idPerso">caracteristiques</router-link>
-    <router-link :to="'/perso/competences/'+idPerso">competences</router-link>
-    <router-link :to="'/perso/inventaire/'+idPerso">inventaire</router-link>
-    <router-link :to="'/perso/equipement/'+idPerso">equipement</router-link>
-    <router-link :to="'/perso/monaie/'+idPerso">monaie</router-link>
-    <router-link :to="'/perso/modificateur/'+idPerso">modificateur</router-link>
-    <router-link :to="'/perso/coup-speciaux/'+idPerso">coup speciaux</router-link>
-  </ul>
+  <nav>
+    <router-link :to="'/perso/'+idPerso+'/home'">home</router-link> |
+    <router-link :to="'/perso/'+idPerso+'/caracteristique'">caracteristiques</router-link> |
+    <router-link :to="'/perso/'+idPerso+'/competences'">competences</router-link> |
+    <router-link :to="'/perso/'+idPerso+'/inventaire'">inventaire</router-link> |
+    <router-link :to="'/perso/'+idPerso+'/equipement'">equipement</router-link> |
+    <router-link :to="'/perso/'+idPerso+'/monaie'">monaie</router-link> |
+    <router-link :to="'/perso/'+idPerso+'/modificateur'">modificateur</router-link> |
+    <router-link :to="'/perso/'+idPerso+'/coup-speciaux'">coup speciaux</router-link> |
+  </nav>
   <router-view/>
 </template>
 
@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     getPerso() {
-      fetch("http://localhost:8080/persos/"+this.idPerso)
+      fetch("https://pers-api.onrender.com/persos/"+this.idPerso)
           .then((response) => response.json())
           .then((perso) => this.perso = perso)
           .then(() => console.log("personnage trouvé"))
