@@ -1,7 +1,9 @@
 <template>
   <h2>Persos</h2>
-
+  <p>actual token generation date: {{this.tokenDate}} <button v-on:click="getToken">reload token</button> {{}}</p>
+  <p>token validity: 1 heure</p>
   <nav id="selectPerso">
+
     <span v-for="perso in persoList">
       <router-link :to="'/perso/'+perso.id">{{perso.nom}}</router-link> |
     </span>
@@ -24,7 +26,9 @@ export default {
     return {
       persoList: [],
       persoSelected: {},
-      id: ""
+      id: "",
+      tokenDate: "",
+
     }
   },
   methods: {
@@ -56,8 +60,12 @@ export default {
     getToken() {
       fetch ("https://pers-api.onrender.com/jwtGenerator/louis3022&29d55de952ef175aca7752b2e610a58b")
           .then((response) => response.text())
-          .then((token) => localStorage.setItem("token", token))
-          .then(() => console.log("token = " + localStorage.getItem("token")))
+          .then((token) => {
+            localStorage.setItem("token", token);
+            var currentDate = new Date();
+            this.tokenDate = currentDate.getDate() + "/" + (currentDate.getMonth()+1) + "/" + currentDate.getFullYear()
+                + " " + currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds() + "." + currentDate.getMilliseconds();
+          })
     }
   },
   created() {
