@@ -26,12 +26,17 @@ export default {
   methods: {
     getPerso() {
       fetch ("https://pers-api.onrender.com/persos/" + this.idPerso)
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then((perso) => {
             this.perso = perso
             this.id = this.$route.params.id
           })
-          .then(() => console.log(this.perso))
+          .catch(error => alert("error: " + error));
     },
     handleModifNom(){
       let requestOption = {
@@ -43,9 +48,14 @@ export default {
         body: prompt("nom:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/nom", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getPerso())
+          .catch(error => alert("error: " + error));
     },
     handleModifClasse(){
       let requestOption = {
@@ -57,9 +67,14 @@ export default {
         body: prompt("classe:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/classe", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) =>{
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getPerso())
+          .catch(error => alert("error: " + error));
     },
     handleModifRace(){
       let requestOption = {
@@ -71,9 +86,14 @@ export default {
         body: prompt("race:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/race", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getPerso())
+          .catch(error => alert("error: " + error));
     },
     handleModifLvl(){
       let requestOption = {
@@ -85,9 +105,14 @@ export default {
         body: prompt("lvl:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/lvl", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getPerso())
+          .catch(error => alert("error: " + error));
     },
     handleModifPv(){
       let requestOption = {
@@ -99,9 +124,14 @@ export default {
         body: prompt("pv:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/pv", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getPerso())
+          .catch(error => alert("error: " + error));
     },
     handleModifPvMax(){
       let requestOption = {
@@ -113,9 +143,14 @@ export default {
         body: prompt("pv max:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/pv_max", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getPerso())
+          .catch(error => alert("error: " + error));
     },
     handleModifXp(){
       let requestOption = {
@@ -127,9 +162,14 @@ export default {
         body: prompt("xp:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/xp", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getPerso())
+          .catch(error => alert("error: " + error));
     },
     handleModifXpMax(){
       let requestOption = {
@@ -141,9 +181,14 @@ export default {
         body: prompt("xp max:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/xp_max", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getPerso())
+          .catch(error => alert("error: " + error));
     }
   },
   created() {

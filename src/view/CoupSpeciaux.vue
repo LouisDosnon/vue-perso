@@ -21,9 +21,17 @@ export default {
     getCoupSpeciaux() {
       console.log("https://pers-api.onrender.com/persos/" + this.idPerso + "/coup-speciaux")
       fetch ("https://pers-api.onrender.com/persos/" + this.idPerso + "/coup-speciaux")
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then((coupS) => this.coupSpeciaux = coupS)
           .then(() => console.log("perso = " + JSON.stringify(this.coupSpeciaux)))
+          .catch(error => {
+            alert("error:" + error);
+          });
     },
     handleAdd() {
       console.log("add");
@@ -39,8 +47,16 @@ export default {
         })
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/coup-speciaux", requestOption)
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getCoupSpeciaux())
+          .catch(error => {
+            alert("error:" + error);
+          });
     },
     handleDelete: function(obj) {
       let requestOption = {
@@ -51,9 +67,16 @@ export default {
       }
       console.log(obj)
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/coup-speciaux/" + this.coupSpeciaux.indexOf(obj), requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getCoupSpeciaux())
+          .catch(error => {
+            alert("error:" + error);
+          });
     }
   },
   created() {

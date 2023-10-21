@@ -21,9 +21,14 @@ export default {
     getModificateurs() {
       console.log("https://pers-api.onrender.com/persos/" + this.idPerso + "/modificateur")
       fetch ("https://pers-api.onrender.com/persos/" + this.idPerso + "/modificateur")
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then((modif) => this.modificateur = modif)
-          .then(() => console.log("perso = " + JSON.stringify(this.modificateur)))
+          .catch(error => alert("error: " + error));
     },
     handleAdd() {
       console.log("add");
@@ -40,8 +45,14 @@ export default {
         })
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/modificateur", requestOption)
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getModificateurs())
+          .catch(error => alert("error: " + error));
     },
     handleDelete: function(obj) {
       let requestOption = {
@@ -52,9 +63,14 @@ export default {
       }
       console.log(obj)
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/modificateur/" + this.modificateur.indexOf(obj), requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getModificateurs())
+          .catch(error => alert("error: " + error));
     }
   },
   created() {

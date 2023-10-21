@@ -21,9 +21,14 @@ export default {
     getInventaire() {
       console.log("https://pers-api.onrender.com/persos/" + this.idPerso + "/inventaire")
       fetch ("https://pers-api.onrender.com/persos/" + this.idPerso + "/inventaire")
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then((inv) => this.inventaire = inv)
-          .then(() => console.log("perso = " + JSON.stringify(this.inventaire)))
+          .catch(error => alert("error: " + error));
     },
     handleAdd() {
       console.log("Bearer " + localStorage.getItem("token"));
@@ -40,12 +45,14 @@ export default {
         })
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/inventaire", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getInventaire())
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
+          .catch(error => alert("error: " + error));
     },
     handleDelete: function(obj) {
       let requestOption = {
@@ -55,9 +62,14 @@ export default {
         }
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/inventaire/" + this.inventaire.indexOf(obj), requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getInventaire())
+          .catch(error => alert("error: " + error));
     }
   },
   created() {

@@ -33,12 +33,14 @@ export default {
         body: prompt("charisme:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/caracteristique/charisme", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getCaracteristique())
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
+          .catch(error => alert("error: " + error));
     },
     handleModifCou() {
       let requestOption = {
@@ -50,12 +52,14 @@ export default {
         body: prompt("courage:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/caracteristique/courage", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getCaracteristique())
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
+          .catch(error => alert("error: " + error));
     },
     handleModifAdr() {
       let requestOption = {
@@ -67,11 +71,15 @@ export default {
         body: prompt("adresse:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/caracteristique/adresse", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getCaracteristique())
           .catch(error => {
-            console.error('Error fetching data:', error);
+            alert("error:" + error);
           });
     },
     handleModifFo() {
@@ -84,11 +92,15 @@ export default {
         body: prompt("force:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/caracteristique/force", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getCaracteristique())
           .catch(error => {
-            console.error('Error fetching data:', error);
+            alert("error:" + error);
           });
     },
     handleModifInt() {
@@ -101,11 +113,15 @@ export default {
         body: prompt("intelligence:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/caracteristique/intelligence", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getCaracteristique())
           .catch(error => {
-            console.error('Error fetching data:', error);
+            alert("error:" + error);
           });
     },
     handleModifAtt() {
@@ -118,11 +134,15 @@ export default {
         body: prompt("attaque:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/caracteristique/attaque", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getCaracteristique())
           .catch(error => {
-            console.error('Error fetching data:', error);
+            alert("error:" + error);
           });
     },
     handleModifPrd() {
@@ -135,11 +155,16 @@ export default {
         body: prompt("parade:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/caracteristique/parade", requestOption)
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then((data) => alert(data))
           .then(() => this.getCaracteristique())
           .catch(error => {
-            console.error('Error fetching data:', error);
+            alert("error:" + error);
           });
     },
     handleModifDes() {
@@ -152,11 +177,15 @@ export default {
         body: prompt("destin:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/caracteristique/destin", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getCaracteristique())
           .catch(error => {
-            console.error('Error fetching data:', error);
+            alert("error:" + error);
           });
     },
     handleModifEa() {
@@ -169,11 +198,15 @@ export default {
         body: prompt("energie astrale:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/caracteristique/energie_astrale", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getCaracteristique())
           .catch(error => {
-            console.error('Error fetching data:', error);
+            alert("error:" + error);
           });
     },
     handleModifEaMax() {
@@ -186,19 +219,30 @@ export default {
         body: prompt("energie astrale max:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/caracteristique/energie_astrale_max", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getCaracteristique())
           .catch(error => {
-            console.error('Error fetching data:', error);
+            alert("error:" + error);
           });
     },
     getCaracteristique() {
       console.log("https://pers-api.onrender.com/persos/" + this.idPerso + "/caracteristique")
       fetch ("https://pers-api.onrender.com/persos/" + this.idPerso + "/caracteristique")
-          .then((response) => response.json())
-          .then((carac) => this.caracteristique = carac)
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => console.log("perso = " + JSON.stringify(this.caracteristique)))
+          .catch(error => {
+            alert("error:" + error);
+          });
     }
   },
   created() {

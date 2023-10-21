@@ -37,9 +37,14 @@ export default {
     },
     getPersoList() {
       fetch ("https://pers-api.onrender.com/persos")
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then((persos) => this.persoList = persos)
-          .then(() => console.log("persoList = " + this.persoList))
+          .catch((error) => alert("error: " + error))
     },
     addItem() {
       try {
@@ -66,6 +71,7 @@ export default {
             this.tokenDate = currentDate.getDate() + "/" + (currentDate.getMonth()+1) + "/" + currentDate.getFullYear()
                 + " " + currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds() + "." + currentDate.getMilliseconds();
           })
+          .catch((error) => alert("error: " + error))
     }
   },
   created() {

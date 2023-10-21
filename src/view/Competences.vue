@@ -21,9 +21,16 @@ export default {
     getCompetences() {
       console.log("https://pers-api.onrender.com/persos/" + this.idPerso + "/competences")
       fetch ("https://pers-api.onrender.com/persos/" + this.idPerso + "/competences")
-          .then((response) => response.json())
-          .then((comp) => this.competences = comp)
+          .then((response) =>{
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => console.log("perso = " + JSON.stringify(this.competences)))
+          .catch(error => {
+            alert("error:" + error);
+          });
     },
     handleAdd() {
       console.log("add");
@@ -39,8 +46,16 @@ export default {
         })
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/competences", requestOption)
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getCompetences())
+          .catch(error => {
+            alert("error:" + error);
+          });
     },
     handleDelete: function(obj) {
       let requestOption = {
@@ -51,9 +66,16 @@ export default {
       }
       console.log(obj)
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/competences/" + this.competences.indexOf(obj), requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getCompetences())
+          .catch(error => {
+            alert("error:" + error);
+          });
     }
   },
   created() {

@@ -37,12 +37,14 @@ export default {
         })
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/equipement/tete-int", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getEquipement())
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
+          .catch(error => alert("error: " + error));
     },
     handleModifTeteExt() {
       let requestOption = {
@@ -57,12 +59,14 @@ export default {
         })
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/equipement/tete-ext", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getEquipement())
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
+          .catch(error => alert("error: " + error));
     },
     handleModifTorInt() {
       let requestOption = {
@@ -77,12 +81,14 @@ export default {
         })
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/equipement/torse-int", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getEquipement())
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
+          .catch(error => alert("error: " + error));
     },
     handleModifTorExt() {
       let requestOption = {
@@ -97,12 +103,14 @@ export default {
         })
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/equipement/torse-ext", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getEquipement())
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
+          .catch(error => alert("error: " + error));
     },
     handleModifJamInt() {
       let requestOption = {
@@ -117,12 +125,14 @@ export default {
         })
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/equipement/jambe-int", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getEquipement())
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
+          .catch(error => alert("error: " + error));
     },
     handleModifJamExt() {
       let requestOption = {
@@ -137,12 +147,14 @@ export default {
         })
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/equipement/jambe-ext", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getEquipement())
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
+          .catch(error => alert("error: " + error));
     },
     handleModifPiedInt() {
       let requestOption = {
@@ -157,12 +169,14 @@ export default {
         })
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/equipement/pied-int", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getEquipement())
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
+          .catch(error => alert("error: " + error));
     },
     handleModifPiedExt() {
       let requestOption = {
@@ -177,12 +191,14 @@ export default {
         })
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/equipement/pied-ext", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getEquipement())
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
+          .catch(error => alert("error: " + error));
     },
     handleModifArme() {
       let requestOption = {
@@ -197,20 +213,27 @@ export default {
         })
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/equipement/arme", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getEquipement())
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
+          .catch(error => alert("error: " + error));
     },
     getEquipement() {
       console.log("https://pers-api.onrender.com/persos/" + this.idPerso + "/equipement")
       fetch ("https://pers-api.onrender.com/persos/" + this.idPerso + "/equipement")
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then((equip) => this.equipement = equip)
-          .then(() => console.log("perso = " + JSON.stringify(this.equipement)))
-    },
+          .catch(error => alert("error: " + error));
+      },
     handleAdd() {
       console.log("add");
       let requestOption = {
@@ -225,8 +248,14 @@ export default {
         })
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/equipement/autre", requestOption)
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getEquipement())
+          .catch(error => alert("error: " + error));
     },
     handleDelete: function(obj) {
       let requestOption = {
@@ -237,9 +266,14 @@ export default {
       }
       console.log(this.equipement.autre.indexOf(obj))
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/equipement/autre/" + this.equipement.autre.indexOf(obj), requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getEquipement())
+          .catch(error => alert("error: " + error));
     }
   },
   created() {

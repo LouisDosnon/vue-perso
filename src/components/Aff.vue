@@ -26,9 +26,14 @@ export default {
   methods: {
     getPerso() {
       fetch("https://pers-api.onrender.com/persos/"+this.idPerso)
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then((perso) => this.perso = perso)
-          .then(() => console.log("personnage trouvé"))
+          .catch((error) => alert("error: " + error))
       console.log(this.perso);
     },
   },

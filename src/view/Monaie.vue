@@ -20,9 +20,14 @@ export default {
     getMonaie() {
       console.log("https://pers-api.onrender.com/persos/" + this.idPerso + "/monaie")
       fetch ("https://pers-api.onrender.com/persos/" + this.idPerso + "/monaie")
-          .then((response) => response.json())
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then((monaie) => this.monaie = monaie)
-          .then(() => console.log("perso = " + JSON.stringify(this.monaie)))
+          .catch(error => alert("error: " + error));
     },
     handleModifOr(){
       let requestOption = {
@@ -34,9 +39,14 @@ export default {
         body: prompt("or:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/monaie/or", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getMonaie())
+          .catch(error => alert("error: " + error));
     },
     handleModifArgent(){
       let requestOption = {
@@ -47,9 +57,14 @@ export default {
         body: prompt("argent:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/monaie/argent", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getMonaie())
+          .catch(error => alert("error: " + error));
     },
     handleModifBronze(){
       let requestOption = {
@@ -60,9 +75,14 @@ export default {
         body: prompt("bronze:")
       }
       fetch("https://pers-api.onrender.com/persos/" + this.idPerso + "/monaie/bronze", requestOption)
-          .then((response) => response.json())
-          .then((data) => alert(data))
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
           .then(() => this.getMonaie())
+          .catch(error => alert("error: " + error));
     }
   },
   created() {
