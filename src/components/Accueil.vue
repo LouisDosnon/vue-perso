@@ -63,7 +63,9 @@ export default {
       }
     },
     getToken() {
-      fetch ("https://pers-api.onrender.com/jwtGenerator/louis3022&29d55de952ef175aca7752b2e610a58b")
+      var user = prompt("user:");
+      var mdp = prompt("mdp:"); //29d55de952ef175aca7752b2e610a58b
+      fetch ("https://pers-api.onrender.com/jwtGenerator/" + user + "&" + mdp)
           .then((response) => response.text())
           .then((token) => {
             localStorage.setItem("token", token);
