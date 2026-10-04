@@ -1,5 +1,5 @@
 <script>
-import {createRouter, createWebHistory} from 'vue-router';
+import {createRouter, createWebHashHistory} from 'vue-router';
 import PersoList from "@/components/PersoList.vue";
 import Home from "@/view/Home.vue";
 import Caracteristique from "@/view/Caracteristique.vue";
@@ -63,18 +63,18 @@ const routes = [
         component: Modificateur,
         props: true,
       },
+      {
+        path: 'coup-speciaux',
+        name: 'coupSpeciaux',
+        component: CoupSpeciaux,
+        props: true,
+      },
     ]
-  },
-  {
-    path: '/perso/:idPerso/coup-speciaux',
-    name: 'coupSpeciaux',
-    component: CoupSpeciaux,
-    props: true,
   },
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes
 })
 
