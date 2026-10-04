@@ -1,4 +1,5 @@
 <template>
+  <Aff :id-perso="idPerso"/>
   <h3>Perso</h3>
   <p>nom: {{this.perso.nom}}<button v-on:click="handleModifNom">/</button></p>
   <p>classe: {{this.perso.classe}}<button v-on:click="handleModifClasse">/</button></p>

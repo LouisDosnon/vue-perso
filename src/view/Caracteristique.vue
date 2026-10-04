@@ -1,28 +1,48 @@
 <template>
+  <Aff :id-perso="idPerso"/>
   <h3>Caratceristique</h3>
   <div>
-    <p>charisme: {{caracteristique.charisme}}<button v-on:click="handleModifCha(obj)">/</button></p>
-    <p>courage: {{caracteristique.courage}}<button v-on:click="handleModifCou(obj)">/</button></p>
-    <p>adresse: {{caracteristique.adresse}}<button v-on:click="handleModifAdr(obj)">/</button></p>
-    <p>force: {{caracteristique.force}}<button v-on:click="handleModifFo(obj)">/</button></p>
-    <p>intelligence: {{caracteristique.intelligence}}<button v-on:click="handleModifInt(obj)">/</button></p>
-    <p>attaque: {{caracteristique.attaque}}<button v-on:click="handleModifAtt(obj)">/</button></p>
-    <p>parade: {{caracteristique.parade}}<button v-on:click="handleModifPrd(obj)">/</button></p>
-    <p>destin: {{caracteristique.destin}}<button v-on:click="handleModifDes(obj)">/</button></p>
-    <p>energie astrale: {{caracteristique.energie_astrale}}<button v-on:click="handleModifEa(obj)">/</button>/{{caracteristique.energie_astrale_max}}<button v-on:click="handleModifEaMax(obj)">/</button></p>
+    <p>charisme: {{perso.caracteristique.charisme}}<button v-on:click="handleModifCha(obj)">/</button></p>
+    <p>courage: {{perso.caracteristique.courage}}<button v-on:click="handleModifCou(obj)">/</button></p>
+    <p>adresse: {{perso.caracteristique.adresse}}<button v-on:click="handleModifAdr(obj)">/</button></p>
+    <p>force: {{perso.caracteristique.force}}<button v-on:click="handleModifFo(obj)">/</button></p>
+    <p>intelligence: {{perso.caracteristique.intelligence}}<button v-on:click="handleModifInt(obj)">/</button></p>
+    <p>attaque: {{perso.caracteristique.attaque}}<button v-on:click="handleModifAtt(obj)">/</button></p>
+    <p>parade: {{perso.caracteristique.parade}}<button v-on:click="handleModifPrd(obj)">/</button></p>
+    <p>destin: {{perso.caracteristique.destin}}<button v-on:click="handleModifDes(obj)">/</button></p>
+    <p>energie astrale: {{perso.caracteristique.energie_astrale}}<button v-on:click="handleModifEa(obj)">/</button>/{{perso.caracteristique.energie_astrale_max}}<button v-on:click="handleModifEaMax(obj)">/</button></p>
   </div>
 </template>
 
 <script>
+import Aff from "@/components/Aff.vue";
+
 export default {
   name: "Caracteristique",
   props: ['idPerso'],
+  components: {
+    Aff,
+  },
   data() {
     return {
-      caracteristique: {},
+      perso: {},
     }
   },
   methods: {
+    getPerso() {
+      fetch ("https://pers-api.onrender.com/persos/" + this.idPerso)
+          .then((response) => {
+            if (response.status === 403) {
+              throw new Error("403 forbiden");
+            }
+            return response.json();
+          })
+          .then((perso) => {
+            this.perso = perso
+            this.id = this.$route.params.id
+          })
+          .catch(error => alert("error: " + error));
+    },
     handleModifCha() {
       let requestOption = {
         method: "PUT",
@@ -39,7 +59,7 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getCaracteristique())
+          .then(() => this.getPerso())
           .catch(error => alert("error: " + error));
     },
     handleModifCou() {
@@ -58,7 +78,7 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getCaracteristique())
+          .then(() => this.getPerso())
           .catch(error => alert("error: " + error));
     },
     handleModifAdr() {
@@ -77,7 +97,7 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getCaracteristique())
+          .then(() => this.getPerso())
           .catch(error => {
             alert("error:" + error);
           });
@@ -98,7 +118,7 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getCaracteristique())
+          .then(() => this.getPerso())
           .catch(error => {
             alert("error:" + error);
           });
@@ -119,7 +139,7 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getCaracteristique())
+          .then(() => this.getPerso())
           .catch(error => {
             alert("error:" + error);
           });
@@ -140,7 +160,7 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getCaracteristique())
+          .then(() => this.getPerso())
           .catch(error => {
             alert("error:" + error);
           });
@@ -162,7 +182,7 @@ export default {
             return response.json();
           })
           .then((data) => alert(data))
-          .then(() => this.getCaracteristique())
+          .then(() => this.getPerso())
           .catch(error => {
             alert("error:" + error);
           });
@@ -183,7 +203,7 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getCaracteristique())
+          .then(() => this.getPerso())
           .catch(error => {
             alert("error:" + error);
           });
@@ -204,7 +224,7 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getCaracteristique())
+          .then(() => this.getPerso())
           .catch(error => {
             alert("error:" + error);
           });
@@ -225,28 +245,14 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getCaracteristique())
-          .catch(error => {
-            alert("error:" + error);
-          });
-    },
-    getCaracteristique() {
-      console.log("https://pers-api.onrender.com/persos/" + this.idPerso + "/caracteristique")
-      fetch ("https://pers-api.onrender.com/persos/" + this.idPerso + "/caracteristique")
-          .then((response) => {
-            if (response.status === 403) {
-              throw new Error("403 forbiden");
-            }
-            return response.json();
-          })
-          .then(() => console.log("perso = " + JSON.stringify(this.caracteristique)))
+          .then(() => this.getPerso())
           .catch(error => {
             alert("error:" + error);
           });
     }
   },
   created() {
-    this.getCaracteristique();
+    this.getPerso();
   }
 }
 </script>

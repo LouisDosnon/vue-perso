@@ -1,32 +1,41 @@
 <template>
+  <Aff :id-perso="idPerso"/>
+
   <h3>Monaie</h3>
   <div>
-    <p>or: {{monaie.or}}<button v-on:click="handleModifOr">/</button></p>
-    <p>argent: {{monaie.argent}}<button v-on:click="handleModifArgent">/</button></p>
-    <p>bronze: {{monaie.bronze}}<button v-on:click="handleModifBronze">/</button></p>
+    <p>or: {{perso.monaie.or}}<button v-on:click="handleModifOr">/</button></p>
+    <p>argent: {{perso.monaie.argent}}<button v-on:click="handleModifArgent">/</button></p>
+    <p>bronze: {{perso.monaie.bronze}}<button v-on:click="handleModifBronze">/</button></p>
   </div>
 </template>
 
 <script>
+import Aff from "@/components/Aff.vue";
+
 export default {
   name: "Monaie",
   props: ['idPerso'],
+  components: {
+    Aff,
+  },
   data() {
     return {
-      monaie: {},
+      perso: {},
     }
   },
   methods: {
-    getMonaie() {
-      console.log("https://pers-api.onrender.com/persos/" + this.idPerso + "/monaie")
-      fetch ("https://pers-api.onrender.com/persos/" + this.idPerso + "/monaie")
+    getPerso() {
+      fetch ("https://pers-api.onrender.com/persos/" + this.idPerso)
           .then((response) => {
             if (response.status === 403) {
               throw new Error("403 forbiden");
             }
             return response.json();
           })
-          .then((monaie) => this.monaie = monaie)
+          .then((perso) => {
+            this.perso = perso
+            this.id = this.$route.params.id
+          })
           .catch(error => alert("error: " + error));
     },
     handleModifOr(){
@@ -45,7 +54,7 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getMonaie())
+          .then(() => this.getPerso())
           .catch(error => alert("error: " + error));
     },
     handleModifArgent(){
@@ -63,7 +72,7 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getMonaie())
+          .then(() => this.getPerso())
           .catch(error => alert("error: " + error));
     },
     handleModifBronze(){
@@ -81,12 +90,12 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getMonaie())
+          .then(() => this.getPerso())
           .catch(error => alert("error: " + error));
     }
   },
   created() {
-    this.getMonaie();
+    this.getPerso();
   }
 }
 </script>

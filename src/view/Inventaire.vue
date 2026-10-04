@@ -1,33 +1,42 @@
 <template>
+  <Aff :id-perso="idPerso"/>
+
   <h3>Inventaire</h3>
   <button v-on:click="handleAdd">+</button>
   <div>
-    <ul v-for="obj in inventaire">
+    <ul v-for="obj in perso.inventaire">
       <li>{{obj.nom}} ({{obj.desc}})<button v-on:click="handleDelete(obj)">-</button></li>
     </ul>
   </div>
 </template>
 
 <script>
+import Aff from "@/components/Aff.vue";
+
 export default {
   name: "Inventaire",
   props: ['idPerso'],
+  components: {
+    Aff,
+  },
   data() {
     return {
-      inventaire: {},
+      perso: {},
     }
   },
   methods: {
-    getInventaire() {
-      console.log("https://pers-api.onrender.com/persos/" + this.idPerso + "/inventaire")
-      fetch ("https://pers-api.onrender.com/persos/" + this.idPerso + "/inventaire")
+    getPerso() {
+      fetch ("https://pers-api.onrender.com/persos/" + this.idPerso)
           .then((response) => {
             if (response.status === 403) {
               throw new Error("403 forbiden");
             }
             return response.json();
           })
-          .then((inv) => this.inventaire = inv)
+          .then((perso) => {
+            this.perso = perso
+            this.id = this.$route.params.id
+          })
           .catch(error => alert("error: " + error));
     },
     handleAdd() {
@@ -51,7 +60,7 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getInventaire())
+          .then(() => this.getPerso())
           .catch(error => alert("error: " + error));
     },
     handleDelete: function(obj) {
@@ -68,12 +77,12 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getInventaire())
+          .then(() => this.getPerso())
           .catch(error => alert("error: " + error));
     }
   },
   created() {
-    this.getInventaire();
+    this.getPerso();
   }
 }
 </script>

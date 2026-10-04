@@ -1,37 +1,43 @@
 <template>
+  <Aff :id-perso="idPerso"/>
+
   <h3>Coup Spéciaux</h3>
   <button v-on:click="handleAdd">+</button>
   <div>
-    <ul v-for="coupS in coupSpeciaux">
+    <ul v-for="coupS in perso.coupSpeciaux">
       <li>{{coupS.nom}} ({{coupS.desc}})<button v-on:click="handleDelete(coupS)">-</button></li>
     </ul>
   </div>
 </template>
 
 <script>
+import Aff from "@/components/Aff.vue";
+
 export default {
   name: "CoupSpeciaux",
   props: ['idPerso'],
+  components: {
+    Aff,
+  },
   data() {
     return {
-      coupSpeciaux: {},
+      perso: {},
     }
   },
   methods: {
-    getCoupSpeciaux() {
-      console.log("https://pers-api.onrender.com/persos/" + this.idPerso + "/coup-speciaux")
-      fetch ("https://pers-api.onrender.com/persos/" + this.idPerso + "/coup-speciaux")
+    getPerso() {
+      fetch ("https://pers-api.onrender.com/persos/" + this.idPerso)
           .then((response) => {
             if (response.status === 403) {
               throw new Error("403 forbiden");
             }
             return response.json();
           })
-          .then((coupS) => this.coupSpeciaux = coupS)
-          .then(() => console.log("perso = " + JSON.stringify(this.coupSpeciaux)))
-          .catch(error => {
-            alert("error:" + error);
-          });
+          .then((perso) => {
+            this.perso = perso
+            this.id = this.$route.params.id
+          })
+          .catch(error => alert("error: " + error));
     },
     handleAdd() {
       console.log("add");
@@ -53,7 +59,7 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getCoupSpeciaux())
+          .then(() => this.getPerso())
           .catch(error => {
             alert("error:" + error);
           });
@@ -73,14 +79,14 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getCoupSpeciaux())
+          .then(() => this.getPerso())
           .catch(error => {
             alert("error:" + error);
           });
     }
   },
   created() {
-    this.getCoupSpeciaux();
+    this.getPerso();
   }
 }
 </script>

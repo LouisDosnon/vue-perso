@@ -1,33 +1,42 @@
 <template>
+  <Aff :id-perso="idPerso"/>
+
   <h3>Modificateur</h3>
   <button v-on:click="handleAdd">+</button>
   <div>
-    <ul v-for="modif in modificateur">
+    <ul v-for="modif in perso.modificateur">
       <li>{{modif.attribut}}: {{modif.difference}} ({{modif.desc}})<button v-on:click="handleDelete(modif)">-</button></li>
     </ul>
   </div>
 </template>
 
 <script>
+import Aff from "@/components/Aff.vue";
+
 export default {
   name: "Modificateur",
   props: ['idPerso'],
+  components: {
+    Aff,
+  },
   data() {
     return {
-      modificateur: {},
+      perso: {},
     }
   },
   methods: {
-    getModificateurs() {
-      console.log("https://pers-api.onrender.com/persos/" + this.idPerso + "/modificateur")
-      fetch ("https://pers-api.onrender.com/persos/" + this.idPerso + "/modificateur")
+    getPerso() {
+      fetch ("https://pers-api.onrender.com/persos/" + this.idPerso)
           .then((response) => {
             if (response.status === 403) {
               throw new Error("403 forbiden");
             }
             return response.json();
           })
-          .then((modif) => this.modificateur = modif)
+          .then((perso) => {
+            this.perso = perso
+            this.id = this.$route.params.id
+          })
           .catch(error => alert("error: " + error));
     },
     handleAdd() {
@@ -51,7 +60,7 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getModificateurs())
+          .then(() => this.getPerso())
           .catch(error => alert("error: " + error));
     },
     handleDelete: function(obj) {
@@ -69,12 +78,12 @@ export default {
             }
             return response.json();
           })
-          .then(() => this.getModificateurs())
+          .then(() => this.getPerso())
           .catch(error => alert("error: " + error));
     }
   },
   created() {
-    this.getModificateurs();
+    this.getPerso();
   }
 }
 </script>
